@@ -1,8 +1,11 @@
 package br.com.springbootcourse.math;
 
+import org.springframework.stereotype.Service;
+
 import br.com.springbootcourse.converters.ConvertValue;
 import br.com.springbootcourse.validation.Validation;
 
+@Service
 public class SimpleMath {
 	
 	public Double sum(String numberOne, String numberTwo) throws Exception {
