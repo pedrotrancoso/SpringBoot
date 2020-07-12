@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.springbootcourse.converter.DozerConverter;
+import br.com.springbootcourse.data.model.Person;
+import br.com.springbootcourse.data.vo.PersonVO;
 import br.com.springbootcourse.exception.ResourceNotFoundException;
-import br.com.springbootcourse.model.Person;
 import br.com.springbootcourse.repository.PersonRepository;
 
 @Service
@@ -15,28 +17,32 @@ public class PersonServices {
 	@Autowired
 	PersonRepository repository;
 	
-	public Person create(Person person) {
-		return repository.save(person);
+	public PersonVO create(PersonVO person) {
+		var entity = DozerConverter.parseObject(person, Person.class);
+		var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+		return vo;
 	}
 	
-	public List<Person> findAll() throws Exception{
-		return repository.findAll();
+	public List<PersonVO> findAll() throws Exception{
+		
+		return DozerConverter.parseListObjects(repository.findAll(), PersonVO.class);
 	}
 	
-	public Person findById(Long id) {
-		return repository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("No records found this ID"));
+	public PersonVO findById(Long id) {
+		return DozerConverter.parseObject(repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records found this ID")), PersonVO.class);
 	}
 	
-	public Person update(Person person) {
-		Person entity = repository.findById(person.getId())
+	public PersonVO update(PersonVO person) {
+		var entity = repository.findById(person.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("No records found this ID"));
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
-		entity.setAddres(person.getAddres());
+		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
 		
-		return repository.save(entity);
+		var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+		return vo;
 	}
 	
 	public void delete(Long id) {
