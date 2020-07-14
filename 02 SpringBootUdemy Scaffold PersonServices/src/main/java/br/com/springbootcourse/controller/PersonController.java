@@ -13,39 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.springbootcourse.data.vo.PersonVO;
+import br.com.springbootcourse.data.vo.v1.PersonVO;
 import br.com.springbootcourse.services.PersonServices;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1/")
 public class PersonController {
 	
 	@Autowired
-	private PersonServices services;
+	private PersonServices service;
 	
 	@GetMapping
 	public List<PersonVO> findAll() throws Exception{
-		return services.findAll();
+		return service.findAll();
 	}
 	
 	@GetMapping("/{id}")
 	public PersonVO findById(@PathVariable("id") Long id){
-		return services.findById(id);
+		return service.findById(id);
 	}
 	
 	@PostMapping
 	public PersonVO create(@RequestBody PersonVO person){
-		return services.create(person);
+		return service.create(person);
 	}
 	
 	@PutMapping
 	public PersonVO update(@RequestBody PersonVO person){
-		return services.update(person);
+		return service.update(person);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id){
-		services.delete(id);
+		service.delete(id);
 		return ResponseEntity.ok().build();
 	}
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.springbootcourse.data.model.Person;
-import br.com.springbootcourse.data.vo.PersonVO;
+import br.com.springbootcourse.data.vo.v1.PersonVO;
 
 public class MockPerson {
 

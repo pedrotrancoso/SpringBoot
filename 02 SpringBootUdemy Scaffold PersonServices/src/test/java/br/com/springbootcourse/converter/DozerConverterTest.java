@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import br.com.springbootcourse.converter.mocks.MockPerson;
 import br.com.springbootcourse.data.model.Person;
-import br.com.springbootcourse.data.vo.PersonVO;
+import br.com.springbootcourse.data.vo.v1.PersonVO;
 
 public class DozerConverterTest {
 	

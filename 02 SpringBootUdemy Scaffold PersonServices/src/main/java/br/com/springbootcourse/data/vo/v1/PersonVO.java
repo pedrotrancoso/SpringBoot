@@ -1,4 +1,4 @@
-package br.com.springbootcourse.data.vo;
+package br.com.springbootcourse.data.vo.v1;
 
 import java.io.Serializable;
 

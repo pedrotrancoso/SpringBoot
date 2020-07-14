@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.springbootcourse.converter.DozerConverter;
 import br.com.springbootcourse.data.model.Person;
-import br.com.springbootcourse.data.vo.PersonVO;
+import br.com.springbootcourse.data.vo.v1.PersonVO;
 import br.com.springbootcourse.exception.ResourceNotFoundException;
 import br.com.springbootcourse.repository.PersonRepository;
 
@@ -16,7 +16,7 @@ public class PersonServices {
 		
 	@Autowired
 	PersonRepository repository;
-	
+
 	public PersonVO create(PersonVO person) {
 		var entity = DozerConverter.parseObject(person, Person.class);
 		var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
@@ -24,7 +24,6 @@ public class PersonServices {
 	}
 	
 	public List<PersonVO> findAll() throws Exception{
-		
 		return DozerConverter.parseListObjects(repository.findAll(), PersonVO.class);
 	}
 	
