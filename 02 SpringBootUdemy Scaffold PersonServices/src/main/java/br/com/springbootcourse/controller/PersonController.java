@@ -1,5 +1,9 @@
 package br.com.springbootcourse.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,30 +21,40 @@ import br.com.springbootcourse.data.vo.v1.PersonVO;
 import br.com.springbootcourse.services.PersonServices;
 
 @RestController
-@RequestMapping("/api/person/v1/")
+@RequestMapping("/api/v1/person")
 public class PersonController {
 	
 	@Autowired
 	private PersonServices service;
 	
-	@GetMapping
+	@GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
 	public List<PersonVO> findAll() throws Exception{
-		return service.findAll();
+		List<PersonVO> persons = service.findAll();
+		persons.stream().forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+		return persons;
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
 	public PersonVO findById(@PathVariable("id") Long id){
-		return service.findById(id);
+		PersonVO personVO = service.findById(id);
+		personVO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+		return personVO;
 	}
 	
-	@PostMapping
+	@PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
+			consumes = {"application/json", "application/xml", "application/x-yaml"})
 	public PersonVO create(@RequestBody PersonVO person){
-		return service.create(person);
+		PersonVO personVO = service.create(person);
+		personVO.add(linkTo(methodOn(PersonController.class).findById(personVO.getKey())).withSelfRel());
+		return personVO;
 	}
 	
-	@PutMapping
+	@PutMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
+			consumes = {"application/json", "application/xml", "application/x-yaml"})	
 	public PersonVO update(@RequestBody PersonVO person){
-		return service.update(person);
+		PersonVO personVO = service.update(person);
+		personVO.add(linkTo(methodOn(PersonController.class).findById(personVO.getKey())).withSelfRel());
+		return personVO;
 	}
 	
 	@DeleteMapping("/{id}")
