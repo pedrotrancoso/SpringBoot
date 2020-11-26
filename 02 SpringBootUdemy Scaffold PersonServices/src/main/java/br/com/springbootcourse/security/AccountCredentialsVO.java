@@ -2,10 +2,10 @@ package br.com.springbootcourse.security;
 
 import java.io.Serializable;
 
-public class AccountCredentialsVO implements Serializable{
+public class AccountCredentialsVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	private String username;
 	private String password;
 	
@@ -33,7 +33,7 @@ public class AccountCredentialsVO implements Serializable{
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,4 +55,5 @@ public class AccountCredentialsVO implements Serializable{
 			return false;
 		return true;
 	}
+
 }

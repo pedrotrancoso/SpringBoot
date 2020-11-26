@@ -30,11 +30,12 @@ public class WebConfig implements WebMvcConfigurer{
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer){
 		
 		//Via EXTENSION - http://localhost:8080/api/v1/person.xml
-		configurer.favorParameter(false)
+		/*configurer.favorParameter(false)
 				.ignoreAcceptHeader(false)
 				.defaultContentType(MediaType.APPLICATION_JSON)
 				.mediaType("json", MediaType.APPLICATION_JSON)
-				.mediaType("xml", MediaType.APPLICATION_XML);
+				.mediaType("xml", MediaType.APPLICATION_XML)
+				.mediaType("x-yaml", MEDIA_TYPE_YAML);;*/
 		
 		//Via QUERY PARAM - http://localhost:8080/api/v1/person?mediaType=xml
 		/*configurer.favorPathExtension(false)
@@ -48,13 +49,14 @@ public class WebConfig implements WebMvcConfigurer{
 			.mediaType("x-yaml", MEDIA_TYPE_YAML);*/
 		
 		//Via HEADER
-		/*configurer.favorPathExtension(false)
+		configurer.favorPathExtension(false)
 			.favorParameter(false)
 			.ignoreAcceptHeader(false)
 			.useRegisteredExtensionsOnly(false)
 			.defaultContentType(MediaType.APPLICATION_JSON)
 			.mediaType("json", MediaType.APPLICATION_JSON)
-			.mediaType("xml", MediaType.APPLICATION_XML);*/
+			.mediaType("xml", MediaType.APPLICATION_XML)
+			.mediaType("x-yaml", MEDIA_TYPE_YAML);
 		
 	}
 

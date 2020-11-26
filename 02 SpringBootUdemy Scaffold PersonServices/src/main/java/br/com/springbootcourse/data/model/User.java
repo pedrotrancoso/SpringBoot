@@ -20,7 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User implements UserDetails, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -120,6 +120,42 @@ public class User implements UserDetails, Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.permissions;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.getPassword();
+	}
+
+	@Override
+	public String getUsername() {
+		return this.getUsername();
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return this.isAccountNonExpired();
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return this.isAccountNonLocked();
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return this.isCredentialsNonExpired();
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return this.isEnabled();
+	}
 
 	@Override
 	public int hashCode() {
@@ -186,41 +222,6 @@ public class User implements UserDetails, Serializable {
 		} else if (!userName.equals(other.userName))
 			return false;
 		return true;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.permissions;
-	}
-
-	@Override
-	public String getPassword() {
-		return this.getPassword();
-	}
-
-	@Override
-	public String getUsername() {
-		return this.getUsername();
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return this.isAccountNonExpired();
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return this.isAccountNonLocked();
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return this.isCredentialsNonExpired();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return this.isEnabled();
 	}
 
 }
