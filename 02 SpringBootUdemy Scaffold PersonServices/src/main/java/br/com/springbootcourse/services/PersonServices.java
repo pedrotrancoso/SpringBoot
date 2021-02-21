@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.springbootcourse.data.model.Person;
 import br.com.springbootcourse.data.vo.v1.PersonVO;
@@ -42,6 +43,13 @@ public class PersonServices {
 		
 		var vo = DozerParser.parseObject(repository.save(entity), PersonVO.class);
 		return vo;
+	}
+	
+	@Transactional
+	public PersonVO desablePerson(Long id) {
+		repository.desablePerson(id);
+		return DozerParser.parseObject(repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records found this ID")), PersonVO.class);
 	}
 	
 	public void delete(Long id) {

@@ -7,8 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import br.com.springbootcourse.security.jwt.JwtConfigurer;
 import br.com.springbootcourse.security.jwt.JwtTokenProvider;
 
@@ -19,9 +18,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private JwtTokenProvider tokenProvider;
 	
 	@Bean
-	public StandardPasswordEncoder passwordEncoder() {
-		StandardPasswordEncoder standardPasswordEncoder = new StandardPasswordEncoder();
-		return standardPasswordEncoder;
+	public BCryptPasswordEncoder passwordEncoder() {
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		return bCryptPasswordEncoder;
 	}
 	
 	@Bean
