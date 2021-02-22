@@ -12,7 +12,7 @@ import br.com.springbootcourse.data.model.Person;
 public interface PersonRepository extends JpaRepository<Person, Long>{
 
 	@Modifying
-	@Query("UPDATE Person SET p.enabled = false WHERE p.id =:id")
+	@Query("UPDATE Person p SET p.enabled = false WHERE p.id =:id")
 	void desablePerson(@Param("id") Long id);
 	
 }
